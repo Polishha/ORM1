@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Каталог телефонов</title>
+    <style>
+        .phone { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .phone img { max-width: 100px; height: auto; }
+        .sort-links { margin: 20px 0; font-size: 16px; }
+        .sort-links a { margin: 0 10px; text-decoration: none; color: #007bff; }
+        .sort-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Каталог телефонов</h1>
+
+    <div class="sort-links">
+        <strong>Сортировать по:</strong>
+        <a href="?sort=name">Названию</a> |
+        <a href="?sort=min_price">Цене (возрастание)</a> |
+        <a href="?sort=max_price">Цене (убывание)</a>
+    </div>
+
+    <div class="phones">
+        {% for phone in phones %}
+            <div class="phone">
+                <h2><a href="{% url 'phone_detail' phone.slug %}">{{ phone.name }}</a></h2>
+                <img src="{{ phone.image }}" alt="{{ phone.name }}">
+                <p><strong>Цена:</strong> {{ phone.price }} руб.</p>
+                <p><strong>Дата выхода:</strong> {{ phone.release_date }}</p>
+                <p><strong>LTE:</strong> {% if phone.lte_exists %}Да{% else %}Нет{% endif %}</p>
+            </div>
+        {% empty %}
+            <p>Телефоны не найдены.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

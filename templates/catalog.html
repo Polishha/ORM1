@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Каталог телефонов</title>
+</head>
+<body>
+    <h1>Каталог телефонов</h1>
+
+    <!-- Ссылки для сортировки -->
+    <div>
+        Сортировать по:
+        <a href="?sort=name">Названию</a> |
+        <a href="?sort=min_price">Цене (возрастание)</a> |
+        <a href="?sort=max_price">Цене (убывание)</a>
+    </div>
+
+    <div class="phones">
+        {% for phone in phones %}
+            <div class="phone">
+                <h2><a href="{% url 'phone_detail' phone.slug %}">{{ phone.name }}</a></h2>
+                <img src="{{ phone.image }}" alt="{{ phone.name }}" width="100">
+                <p>Цена: {{ phone.price }} руб.</p>
+                <p>Дата выхода: {{ phone.release_date }}</p>
+                <p>LTE: {% if phone.lte_exists %}Да{% else %}Нет{% endif %}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+</body>
+</html>
